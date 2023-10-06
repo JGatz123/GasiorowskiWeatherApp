@@ -18,6 +18,7 @@ async function findCitycords (locationName) {
         var lat = data[0].lat;
         var lon = data[0].lon;
         currentForecast(lat, lon)
+        getWeekForecast(lat, lon)
     })
 }
 
@@ -36,38 +37,55 @@ async function currentForecast (lat, lon) {
         icon: data.weather[0].icon
     };
     console.log(data)
+    document.querySelector("#today").innerHTML = ""
     var currentCard = document.createElement("div")
     currentCard.setAttribute("class", "currentCard")
 
     var city = document.createElement("h2")
     city.textContent = data.city
 
+    var temp = document.createElement ("h3")
+    temp.textContent = "Temp: " + data.temp + "degrees"
 
+    var humid = document.createElement("h3")
+    humid.textContent = "Humidity: " + data.humidity
 
+    var windSpeed = document.createElement ("h3")
+    windSpeed.textContent = "Windspeed: " + data.windSpeed + "miles per hour"
 
-    currentCard.append(city)
+    var description = document.createElement ("h3")
+    description.textContent = "The current forecast is: " + data.description
+
+    var icon = document.createElement ("img")
+    icon.setAttribute("src", `https://openweathermap.org/img/wn/${data.icon}.png`)
+
+    currentCard.append(city, temp, humid, windSpeed, description, icon)
     document.querySelector("#today").append(currentCard)
 }
 
-// async function getWeekdayWeather ({lat, lon}) {
-//     // This gets the weather for the city
-//     const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`);
-//     var data = await res.json();
-//     data = data.list.filter(function (weather) {
-//         return weather.dt_txt.includes('12:00:00');
-//     });
-//     data = data.map(function (weather) {
-//         return {
-//             date: weather.dt_txt,
-//             temp: weather.main.temp,
-//             humidity: weather.main.humidity,
-//             windSpeed: weather.wind.speed,
-//             description: weather.weather[0].description,
-//             icon: weather.weather[0].icon
-//         }
-//     });
-//     return data;
-// }
+async function getWeekForecast (lat, lon) {
+    // This gets the weather for the city for a 5 day forecast
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`);
+    var data = await res.json();
+    data = data.list.filter(function (weather) {
+        return weather.dt_txt.includes('12:00:00');
+    });
+    console.log(data)
+
+
+
+    data = data.map(function (weather) {
+        return {
+            date: weather.dt_txt,
+            temp: weather.main.temp,
+            humidity: weather.main.humidity,
+            windSpeed: weather.wind.speed,
+            description: weather.weather[0].description,
+            icon: weather.weather[0].icon
+        }
+    });
+    console.log(data)
+}
 
 
 async function getForecast (locationName) {
