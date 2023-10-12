@@ -40,18 +40,19 @@ async function currentForecast (lat, lon) {
     document.querySelector("#today").innerHTML = ""
     var currentCard = document.createElement("div")
     currentCard.setAttribute("class", "currentCard")
+    currentCard.classList.add("card")
 
     var city = document.createElement("h2")
     city.textContent = data.city
 
     var temp = document.createElement ("h3")
-    temp.textContent = "Temp: " + data.temp + "degrees"
+    temp.textContent = "Temp: " + data.temp + " degrees"
 
     var humid = document.createElement("h3")
     humid.textContent = "Humidity: " + data.humidity
 
     var windSpeed = document.createElement ("h3")
-    windSpeed.textContent = "Windspeed: " + data.windSpeed + "miles per hour"
+    windSpeed.textContent = "Windspeed: " + data.windSpeed + " miles per hour"
 
     var description = document.createElement ("h3")
     description.textContent = "The current forecast is: " + data.description
@@ -85,6 +86,36 @@ async function getWeekForecast (lat, lon) {
         }
     });
     console.log(data)
+
+    document.querySelector("#forecast").innerHTML = ""
+
+    for(var i = 0; i<data.length; i++){
+        
+    var fiveDayCard = document.createElement("div")
+    fiveDayCard.setAttribute("class", "fiveDayCard")
+    fiveDayCard.classList.add("card")
+
+    var date = document.createElement("h4")
+    date.textContent = data[i].date
+
+    var temp = document.createElement ("h3")
+    temp.textContent = "Temp: " + data[i].temp + " degrees"
+
+    var humid = document.createElement("h3")
+    humid.textContent = "Humidity: " + data[i].humidity
+
+    var windSpeed = document.createElement ("h3")
+    windSpeed.textContent = "Windspeed: " + data[i].windSpeed + " miles per hour"
+
+    var description = document.createElement ("h3")
+    description.textContent = "The current forecast is: " + data[i].description
+
+    var icon = document.createElement ("img")
+    icon.setAttribute("src", `https://openweathermap.org/img/wn/${data[i].icon}.png`)
+
+    fiveDayCard.append(date, temp, humid, windSpeed, description, icon)
+    document.querySelector("#forecast").append(fiveDayCard)
+    }
 }
 
 

@@ -1,0 +1,36 @@
+:root {
+    --ocean: #525FE1;
+    --sunset: #F86F03;
+    --dawn: #FFA41B;
+    --cloud: #FFF6F4;
+}
+
+body {
+    background-color: var(--dawn);
+    min-height: 100vh;
+}
+
+aside {
+    background-color: var(--sunset);
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--ocean);
+}
+
+#forecast {
+    margin-left: 0 !important;
+}
+
+.card {
+    background-color: var(--cloud);
+    padding: 20px;
+    border-radius: 7px;
+    border-color: black;
+}
+
+img {
+    height: 75px;
+    width: 75px;
+}
