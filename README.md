@@ -19,4 +19,7 @@ This application requires no additional softeware or programs to be installed. A
 
 MIT License
 
+### A working link to the application is:
+https://jgatz123.github.io/GasiorowskiWeatherApp/
+
     
